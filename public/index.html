@@ -198,7 +198,13 @@ iframe.active{opacity:1;transform:none}
         title="YouTube"
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
         style="width:100%; min-height:90vh; border:none;"></iframe>
-
+<!-- 🧠 Taruh script ini di bawah semua iframe -->
+  <script>
+  document.querySelectorAll("iframe").forEach(f=>{
+    f.addEventListener("error",()=>{
+      console.warn("File tidak ditemukan:", f.src);
+    });
+  });
   </main>
 </div>
 
