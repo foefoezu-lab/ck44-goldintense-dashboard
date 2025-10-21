@@ -247,9 +247,9 @@ function render(){
             <button class="btn" onclick="copy('#n-${idx}')">Copy Narration</button>
           </div>
           <label class="muted" style="margin-top:10px;">YouTube Description Template</label>
-          <textarea id="d-{idx}">🔥 Welcome to CK44 Bangladesh 🔥
-🎮 Game: {game} ({brand})
-Experience the excitement of {game} by {brand} — now available on CK44 Bangladesh!
+          <textarea id="d-${idx}">🔥 Welcome to CK44 Bangladesh 🔥
+🎮 Game: ${d.game} (${d.brand})
+Experience the excitement of ${d.game} by ${d.brand} — now available on CK44 Bangladesh!
 
 💎 Enjoy exclusive bonuses, daily rewards, and VIP privileges only at CK44.
 👉 Join the action today and spin your luck!
@@ -257,9 +257,9 @@ Experience the excitement of {game} by {brand} — now available on CK44 Banglad
 🌐 Visit: www.ck44.com
 📱 Follow for daily updates & rewards
 
-#CK44 #Bangladesh #{brand} #{game} #Casino #Gaming #Bonus #Slots</textarea>
+#CK44 #Bangladesh #${d.brand} #${d.game} #Casino #Gaming #Bonus #Slots</textarea>
           <div class="copy-row">
-            <button class="btn" onclick="copy('#d-{idx}')">Copy Description</button>
+            <button class="btn" onclick="copy('#d-${idx}')">Copy Description</button>
           </div>
 
         </div>
