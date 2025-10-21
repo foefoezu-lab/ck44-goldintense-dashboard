@@ -1,232 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CK44 – LinkedIn 30-Day Planner</title>
-
-<!-- Fonts -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CK44 – LinkedIn 30-Day Planner (Dashboard Fix)</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-  :root{
-    --bg:#0a0a0a;
-    --panel:#14100a;
-    --border:#3b2a10;
-    --text:#fff9e8;
-    --muted:#d8c78f;
-    --gold:#ffd700;
-    --gold-2:#ffb700;
-    --accent:#d4af37;
-    --cyan:#8de3ff;
-    --shadow: 0 12px 28px rgba(0,0,0,.55);
-  }
-  *, *::before, *::after{ box-sizing:border-box }
-  html, body{
-    margin:0; padding:0;
-    background:
-      radial-gradient(1200px 720px at 12% -10%, rgba(212,175,55,.22), transparent),
-      radial-gradient(1200px 720px at 88% 8%, rgba(255,215,0,.18), transparent),
-      linear-gradient(180deg,#0a0a0a,#1b1304 40%,#0a0a0a);
-    color: var(--text);
-    font-family: Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  }
-  .container{ max-width:1200px; margin:24px auto; padding:0 16px; }
-  .hero{
-    position:relative; overflow:hidden;
-    border:1px solid var(--border); border-radius:16px;
-    background: rgba(20,16,10,.92);
-    padding:24px;
-    box-shadow: var(--shadow);
-  }
-  .hero::before, .hero::after{
-    content:""; position:absolute; inset: -1px; pointer-events:none;
-    background:
-      radial-gradient(500px 80px at 6% -8%, rgba(255,215,0,.20), transparent 60%),
-      radial-gradient(500px 80px at 94% -8%, rgba(212,175,55,.15), transparent 60%);
-  }
-  h1{
-    font-family: 'Orbitron', Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    letter-spacing:.4px; margin:0 0 6px;
-  }
-  .subtitle{ color: var(--muted); margin:0; }
-  .toolbar{
-    display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;
-  }
-  .btn, .btn-gold{
-    display:inline-flex; align-items:center; justify-content:center;
-    gap:8px; padding:10px 14px; border-radius:12px; cursor:pointer;
-    border:1px solid #5a420f;
-    background: linear-gradient(90deg, #604000, #ffcc33);
-    color:#1a1204; font-weight:700;
-    text-shadow: 0 1px 0 rgba(255,255,255,.15);
-    box-shadow: 0 8px 20px rgba(255,204,51,.18);
-    transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
-  }
-  .btn:hover{ filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 12px 26px rgba(255,204,51,.25); }
-  .btn:active{ transform: translateY(0); }
-  .muted{ color: var(--muted); }
-
-  .panel{ background: rgba(20,16,10,.92); border:1px solid var(--border); border-radius:14px; padding:14px; margin-top:12px; box-shadow: var(--shadow); position:relative; overflow:hidden; }
-  .panel::before{
-    content:""; position:absolute; inset:-1px; pointer-events:none;
-    background:
-      radial-gradient(400px 50px at 10% -10%, rgba(255,215,0,.18), transparent 60%),
-      radial-gradient(400px 50px at 90% -10%, rgba(212,175,55,.12), transparent 60%);
-  }
-
-  .day{ display:flex; align-items:center; gap:10px; justify-content:space-between;
-        background:#0f0b06; border:1px solid var(--border); border-radius:12px; padding:10px; }
-  .badge{ border:1px solid #5a420f; padding:6px 12px; border-radius:999px;
-          background: linear-gradient(180deg, #1d1608, #14100a); color: #ffe8a6; font-weight:600; }
-  .status{ display:flex; align-items:center; gap:10px; margin-left:auto; color:#ffe8a6; }
-  input[type="checkbox"]{ accent-color:#ffd24d; }
-
-  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  textarea, input[type="text"], input[type="url"]{
-    width:100%; min-height:120px; resize:vertical;
-    background:#100c06; color:var(--text);
-    border:1px solid #3b2a10; border-radius:12px; padding:12px;
-    font-family: Poppins, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  }
-  textarea:focus, input[type="text"]:focus, input[type="url"]:focus{
-    outline: 2px solid rgba(255,215,0,.25);
-    box-shadow: 0 0 0 3px rgba(255,215,0,.15);
-  }
-  .copy{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
-
-  /* Scrollbar gold */
-  *::-webkit-scrollbar{ width:10px; height:10px; }
-  *::-webkit-scrollbar-track{ background:#0f0f0f; }
-  *::-webkit-scrollbar-thumb{ background:#b8903c; border-radius:10px; border:2px solid #0f0f0f; }
-  *{ scrollbar-width: thin; scrollbar-color:#b8903c #0f0f0f; }
-
-  /* Footer */
-  .foot{ text-align:center; margin:18px 0 8px; color:#e8ddb6; font-size:13px; }
-  .kw{ color: var(--cyan); }
-
-  @media (max-width: 860px){
-    .grid{ grid-template-columns: 1fr; }
-  }
+:root{
+  --bg:#0a0a0a;--panel:#14100a;--border:#3b2a10;
+  --text:#fff9e8;--muted:#d8c78f;--gold:#ffd700;
+  --accent:#d4af37;--cyan:#8de3ff;--shadow:0 12px 28px rgba(0,0,0,.55);
+}
+html,body{margin:0;padding:0;background:#0a0a0a;color:var(--text);font-family:Poppins,ui-sans-serif,system-ui;}
+.container{max-width:1200px;margin:24px auto;padding:0 16px;}
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;
+  background:rgba(20,16,10,.92);padding:24px;box-shadow:var(--shadow);}
+h1{font-family:'Orbitron',Poppins;font-size:1.8rem;margin:0 0 8px;}
+.subtitle{color:var(--muted);margin:0 0 12px;}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 14px;border-radius:10px;border:1px solid #5a420f;
+  background:linear-gradient(90deg,#604000,#ffcc33);
+  color:#1a1204;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.15);
+  box-shadow:0 8px 20px rgba(255,204,51,.18);cursor:pointer;
+  transition:transform .12s ease,box-shadow .2s ease,filter .2s ease;}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px);
+  box-shadow:0 12px 26px rgba(255,204,51,.25);}
+.panel{background:rgba(20,16,10,.92);border:1px solid var(--border);
+  border-radius:14px;padding:14px;margin-top:12px;box-shadow:var(--shadow);}
+.day{display:flex;align-items:center;justify-content:space-between;
+  background:#0f0b06;border:1px solid var(--border);border-radius:12px;padding:10px;}
+.badge{border:1px solid #5a420f;padding:6px 12px;border-radius:999px;
+  background:linear-gradient(180deg,#1d1608,#14100a);color:#ffe8a6;font-weight:600;}
+.status{display:flex;align-items:center;gap:10px;color:#ffe8a6;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+textarea{width:100%;min-height:120px;resize:vertical;background:#100c06;color:var(--text);
+  border:1px solid #3b2a10;border-radius:12px;padding:12px;}
+.copy{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+*::-webkit-scrollbar{width:10px;height:10px;}
+*::-webkit-scrollbar-thumb{background:#b8903c;border-radius:10px;border:2px solid #0f0f0f;}
+*{scrollbar-width:thin;scrollbar-color:#b8903c #0f0f0f;}
+.foot{text-align:center;margin:18px 0 8px;color:#e8ddb6;font-size:13px;}
+.kw{color:var(--cyan);}
+.fallback{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  text-align:center;padding:20px;color:var(--text);font-family:'Orbitron';
+}
+.fallback h2{color:#ffd24d;margin:0 0 8px;font-size:1.4rem;}
+.fallback p{color:var(--muted);}
 </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <h1>CK44 – LinkedIn 30-Day Planner</h1>
-      <p class="subtitle">Gold Intense aesthetic • Professional, growth-focused posts • Copy-ready • Export CSV</p>
-      <div class="toolbar">
-        <button id="exportCsvBtn" class="btn">Export CSV</button>
-        <span class="muted">Tip: gunakan tombol <strong>Copy</strong> untuk menyalin Caption & Prompt.</span>
-      </div>
-    </section>
+<div class="container">
+  <section class="hero">
+    <h1>CK44 – LinkedIn 30-Day Planner</h1>
+    <p class="subtitle">Gold Intense aesthetic • Professional, growth-focused posts • Copy-ready • Export CSV</p>
+    <div class="toolbar">
+      <button id="exportCsvBtn" class="btn">Export CSV</button>
+      <span class="subtitle">Use <b>Copy</b> to duplicate captions and prompts.</span>
+    </div>
+  </section>
+  <div id="root"></div>
+  <p class="foot">CK44 Planner • <span class="kw">Gold Intense</span> Edition • LinkedIn</p>
+</div>
 
-    <div id="root"></div>
-
-    <p class="foot">CK44 Planner • <span class="kw">Gold Intense</span> Edition • LinkedIn</p>
-  </div>
+<div class="fallback" id="fallback">
+  <h2>⚠️ Planner gagal dimuat sepenuhnya</h2>
+  <p>Aktifkan <code>allow-scripts</code> di iframe atau buka file ini di tab baru.</p>
+</div>
 
 <script>
 (function(){
-  const root = document.getElementById('root');
-
-  const defaultTexts = {
-    Morning: 'LinkedIn • Share a professional insight or motivational story about CK44 and growth.',
-    Afternoon: 'LinkedIn • Highlight CK44 achievements, platform updates, partnership news, or success stories.',
-    Night: 'LinkedIn • Encourage engagement, reflection, or network conversation about CK44.'
-  };
-
-  function postTemplate(day, slot){
-    const textId = `t-${day}-${slot}`;
-    const promptId = `p-${day}-${slot}`;
-    const defaultText = defaultTexts[slot] || '';
-
-    const defaultPrompt = `Create LinkedIn post visual in CK44 blue–gold style with professional tone, elegant typography, and topic '{slot}' for day {day}.`
-      .replace('{slot}', slot)
-      .replace('{day}', day);
-
-    return `
-      <div class="panel">
-        <div class="day">
-          <span class="badge">Day ${day} — ${slot}</span>
-          <label class="status"><input type="checkbox"> posted</label>
-        </div>
-        <div class="grid">
-          <div>
-            <label>Caption</label>
-            <textarea id="${textId}">${defaultText}</textarea>
-            <div class="copy">
-              <button class="btn" data-copy="#${textId}">Copy Caption</button>
-            </div>
-          </div>
-          <div>
-            <label>AI Image Prompt</label>
-            <textarea id="${promptId}">${defaultPrompt}</textarea>
-            <div class="copy">
-              <button class="btn" data-copy="#${promptId}">Copy Prompt</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
+  const root=document.getElementById('root');
+  const fb=document.getElementById('fallback');
+  const txts={Morning:'LinkedIn • Share a professional insight or motivational story about CK44 and growth.',
+    Afternoon:'LinkedIn • Highlight CK44 achievements, platform updates, partnership news, or success stories.',
+    Night:'LinkedIn • Encourage engagement, reflection, or network conversation about CK44.'};
+  function panel(d,s){
+    const idt=`t-${d}-${s}`,idp=`p-${d}-${s}`;
+    const prompt=`Create LinkedIn post visual in CK44 blue–gold style with professional tone and topic '${s}' for day ${d}.`;
+    return `<div class="panel">
+      <div class="day"><span class="badge">Day ${d} — ${s}</span><label class="status"><input type="checkbox"> posted</label></div>
+      <div class="grid">
+        <div><label>Caption</label><textarea id="${idt}">${txts[s]}</textarea>
+          <div class="copy"><button class="btn" data-copy="#${idt}">Copy Caption</button></div></div>
+        <div><label>AI Image Prompt</label><textarea id="${idp}">${prompt}</textarea>
+          <div class="copy"><button class="btn" data-copy="#${idp}">Copy Prompt</button></div></div>
+      </div></div>`;
   }
-
-  // Render 30 days x 3 slots
-  let html = "";
-  for(let d=1; d<=30; d++){
-    html += postTemplate(d, 'Morning');
-    html += postTemplate(d, 'Afternoon');
-    html += postTemplate(d, 'Night');
-  }
-  root.innerHTML = html;
-
-  // Copy handler (event delegation)
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('[data-copy]');
-    if(!btn) return;
-    const sel = btn.getAttribute('data-copy');
-    const el = document.querySelector(sel);
-    if(!el) return;
-    el.select();
-    el.setSelectionRange(0, 1e6);
-    try{
-      const ok = document.execCommand('copy');
-      btn.textContent = ok ? 'Copied!' : 'Copy';
-      setTimeout(()=>btn.textContent='Copy ' + (sel.includes('-p-') ? 'Prompt':'Caption'), 800);
-      el.style.outline='2px solid var(--cyan)'; setTimeout(()=>el.style.outline='none',600);
-    }catch(err){
-      alert('Copy failed. Please copy manually.');
-    }
+  let html="";for(let i=1;i<=30;i++){html+=panel(i,"Morning")+panel(i,"Afternoon")+panel(i,"Night");}
+  root.innerHTML=html;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-copy]');if(!b)return;
+    const s=b.getAttribute('data-copy');const el=document.querySelector(s);if(!el)return;
+    el.select();el.setSelectionRange(0,99999);
+    try{document.execCommand('copy');b.textContent='Copied!';
+      setTimeout(()=>b.textContent='Copy '+(s.includes('-p-')?'Prompt':'Caption'),800);
+      el.style.outline='2px solid var(--cyan)';setTimeout(()=>el.style.outline='none',600);}
+    catch(err){alert('Copy failed');}
   });
-
-  // Export CSV
-  function exportCSV(){
-    // Build rows: Day, Slot, Caption, Prompt
-    const rows = [['Day','Slot','Caption','Prompt']];
-    const panels = root.querySelectorAll('.panel');
-    panels.forEach(panel => {
-      const badge = panel.querySelector('.badge')?.textContent || '';
-      // badge format: "Day X — Slot"
-      const match = badge.match(/Day\\s+(\\d+)\\s+—\\s+(\\w+)/i);
-      const day = match ? match[1] : '';
-      const slot = match ? match[2] : '';
-      const areas = panel.querySelectorAll('textarea');
-      const caption = areas[0]?.value.replace(/\\r?\\n/g, ' ').trim() || '';
-      const prompt = areas[1]?.value.replace(/\\r?\\n/g, ' ').trim() || '';
-      rows.push([day, slot, caption, prompt]);
+  document.getElementById('exportCsvBtn').addEventListener('click',()=>{
+    const rows=[["Day","Slot","Caption","Prompt"]];
+    root.querySelectorAll('.panel').forEach(p=>{
+      const b=p.querySelector('.badge').textContent.match(/Day\s+(\d+)\s+—\s+(\w+)/);
+      const d=b?b[1]:"",s=b?b[2]:"";
+      const t=p.querySelectorAll('textarea');
+      rows.push([d,s,t[0].value.trim(),t[1].value.trim()]);
     });
-    const csv = rows.map(r => r.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\\n');
-    const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'CK44_LinkedIn_30Day_Planner.csv';
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(url);
-    a.remove();
-  }
-  document.getElementById('exportCsvBtn').addEventListener('click', exportCSV);
+    const csv=rows.map(r=>r.map(v=>`"${v.replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='CK44_LinkedIn_30Day_Planner.csv';
+    a.click();URL.revokeObjectURL(a.href);
+  });
+  setTimeout(()=>{if(!root.innerHTML.trim()){fb.style.display='flex';}},1000);
 })();
 </script>
 </body>
