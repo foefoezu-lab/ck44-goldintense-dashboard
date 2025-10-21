@@ -158,22 +158,7 @@ iframe.active{opacity:1;transform:none}
       </div>
     </div>
    <div class="iframe-wrap" id="wrap">
- <!-- === CK44 Planners Iframe Viewer === -->
-<div class="iframe-wrap" id="wrap">
-  <!-- === CK44 Planners Iframe Viewer (Fixed) === -->
-<div class="iframe-wrap" id="wrap" style="background:#0a0a0a;">
-
-  <!-- === CK44 Planners Iframe Viewer (Auto-Height + Fade) === -->
-<style>
-  .iframe-wrap iframe {
-    opacity: 0;
-    transition: opacity .6s ease-in-out;
-  }
-  .iframe-wrap iframe.loaded {
-    opacity: 1;
-  }
-</style>
-
+  <!-- === CK44 Planners Iframe Viewer (Optimized Auto-Height) === -->
 <div class="iframe-wrap" id="wrap" style="background:#0a0a0a;">
 
   <!-- Instagram -->
@@ -235,37 +220,27 @@ iframe.active{opacity:1;transform:none}
 
 </div>
 
-<!-- === Optimized Auto-Height + Fade Script === -->
+<!-- === Optimized Auto-Height Script === -->
 <script>
 (function() {
-  const iframes = document.querySelectorAll('.iframe-wrap iframe');
   const adjust = (frame) => {
     try {
       const doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc || !doc.body) return;
       const newHeight = doc.body.scrollHeight + 50;
-      if (newHeight > 400 && Math.abs(frame.offsetHeight - newHeight) > 10) {
+      if (newHeight > 400 && Math.abs(frame.offsetHeight - newHeight) > 10)
         frame.style.height = newHeight + 'px';
-      }
     } catch(e) {}
   };
 
-  const markLoaded = (frame) => {
-    frame.classList.add('loaded');
-  };
-
   const resizeAll = () => {
-    iframes.forEach(adjust);
+    document.querySelectorAll('.iframe-wrap iframe').forEach(adjust);
   };
 
-  window.addEventListener('load', () => {
-    iframes.forEach(frame => {
-      frame.addEventListener('load', () => markLoaded(frame));
-    });
-    resizeAll();
-  });
+  window.addEventListener('load', resizeAll);
   window.addEventListener('resize', resizeAll);
 
+  // Recheck a few times during initial render to catch late-loaded planners
   let checks = 0;
   const interval = setInterval(() => {
     resizeAll();
@@ -274,7 +249,6 @@ iframe.active{opacity:1;transform:none}
 })();
 </script>
 <!-- === END CK44 Planners === -->
-
 
 
 <!-- Centered footer -->
