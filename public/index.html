@@ -157,6 +157,7 @@ iframe.active{opacity:1;transform:none}
         <button id="reload" class="btn">Reload</button>
       </div>
     </div>
+
   <!-- === CK44 Planners Iframe Viewer (Optimized Auto-Height) === -->
 <div class="iframe-wrap" id="wrap" style="background:#0a0a0a;">
 
@@ -221,59 +222,33 @@ iframe.active{opacity:1;transform:none}
 
 <!-- === Optimized Auto-Height Script === -->
 <script>
-(function() {!-- 🧠 Script auto-height di sini -->
-<script>
-  (function() {
-    const iframes = document.querySelectorAll('.iframe-wrap iframe');
+(function() {
+  const adjust = (frame) => {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.body) return;
+      const newHeight = doc.body.scrollHeight + 50;
+      if (newHeight > 400 && Math.abs(frame.offsetHeight - newHeight) > 10)
+        frame.style.height = newHeight + 'px';
+    } catch(e) {}
+  };
 
-    function getLimit(frame) {
-      const t = frame.title.toLowerCase();
-      if (t.includes('tiktok') || t.includes('threads')) return 1800;
-      if (t.includes('linkedin') || t.includes('medium')) return 1600;
-      if (t.includes('reddit') || t.includes('twitter') || t.includes('x')) return 1400;
-      if (t.includes('youtube')) return 1600;
-      if (t.includes('instagram')) return 1500;
-      return 1600;
-    }
+  const resizeAll = () => {
+    document.querySelectorAll('.iframe-wrap iframe').forEach(adjust);
+  };
 
-    function adjust(frame) {
-      try {
-        const doc = frame.contentDocument || frame.contentWindow.document;
-        if (!doc || !doc.body) return;
-        const rawHeight = doc.body.scrollHeight + 50;
-        const limit = getLimit(frame);
-        const newHeight = Math.min(rawHeight, limit);
-        if (Math.abs(frame.offsetHeight - newHeight) > 10) {
-          frame.style.height = newHeight + 'px';
-        }
-        if (!frame.classList.contains('loaded')) {
-          frame.classList.add('loaded');
-          frame.style.opacity = 1;
-        }
-      } catch (e) {}
-    }
+  window.addEventListener('load', resizeAll);
+  window.addEventListener('resize', resizeAll);
 
-    function resizeAll() {
-      iframes.forEach(adjust);
-    }
-
-    iframes.forEach(f => {
-      f.style.opacity = 0;
-      f.style.transition = 'opacity .6s ease-in-out';
-      f.addEventListener('load', () => adjust(f));
-    });
-
-    window.addEventListener('load', resizeAll);
-    window.addEventListener('resize', resizeAll);
-
-    let count = 0;
-    const interval = setInterval(() => {
-      resizeAll();
-      if (++count > 3) clearInterval(interval);
-    }, 2000);
-  })();
+  // Recheck a few times during initial render to catch late-loaded planners
+  let checks = 0;
+  const interval = setInterval(() => {
+    resizeAll();
+    if (++checks > 6) clearInterval(interval);
+  }, 1500);
+})();
 </script>
-
+<!-- === END CK44 Planners === -->
 
 
 <!-- Centered footer -->
