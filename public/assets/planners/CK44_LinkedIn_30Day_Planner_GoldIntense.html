@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CK44 – LinkedIn 30-Day Planner (Dashboard Fix)</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--panel:#14100a;--border:#3b2a10;
+  --text:#fff9e8;--muted:#d8c78f;--gold:#ffd700;
+  --accent:#d4af37;--cyan:#8de3ff;--shadow:0 12px 28px rgba(0,0,0,.55);
+}
+html,body{margin:0;padding:0;background:#0a0a0a;color:var(--text);font-family:Poppins,ui-sans-serif,system-ui;}
+.container{max-width:1200px;margin:24px auto;padding:0 16px;}
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;
+  background:rgba(20,16,10,.92);padding:24px;box-shadow:var(--shadow);}
+h1{font-family:'Orbitron',Poppins;font-size:1.8rem;margin:0 0 8px;}
+.subtitle{color:var(--muted);margin:0 0 12px;}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 14px;border-radius:10px;border:1px solid #5a420f;
+  background:linear-gradient(90deg,#604000,#ffcc33);
+  color:#1a1204;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,.15);
+  box-shadow:0 8px 20px rgba(255,204,51,.18);cursor:pointer;
+  transition:transform .12s ease,box-shadow .2s ease,filter .2s ease;}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px);
+  box-shadow:0 12px 26px rgba(255,204,51,.25);}
+.panel{background:rgba(20,16,10,.92);border:1px solid var(--border);
+  border-radius:14px;padding:14px;margin-top:12px;box-shadow:var(--shadow);}
+.day{display:flex;align-items:center;justify-content:space-between;
+  background:#0f0b06;border:1px solid var(--border);border-radius:12px;padding:10px;}
+.badge{border:1px solid #5a420f;padding:6px 12px;border-radius:999px;
+  background:linear-gradient(180deg,#1d1608,#14100a);color:#ffe8a6;font-weight:600;}
+.status{display:flex;align-items:center;gap:10px;color:#ffe8a6;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+textarea{width:100%;min-height:120px;resize:vertical;background:#100c06;color:var(--text);
+  border:1px solid #3b2a10;border-radius:12px;padding:12px;}
+.copy{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+*::-webkit-scrollbar{width:10px;height:10px;}
+*::-webkit-scrollbar-thumb{background:#b8903c;border-radius:10px;border:2px solid #0f0f0f;}
+*{scrollbar-width:thin;scrollbar-color:#b8903c #0f0f0f;}
+.foot{text-align:center;margin:18px 0 8px;color:#e8ddb6;font-size:13px;}
+.kw{color:var(--cyan);}
+.fallback{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  text-align:center;padding:20px;color:var(--text);font-family:'Orbitron';
+}
+.fallback h2{color:#ffd24d;margin:0 0 8px;font-size:1.4rem;}
+.fallback p{color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <h1>CK44 – LinkedIn 30-Day Planner</h1>
+    <p class="subtitle">Gold Intense aesthetic • Professional, growth-focused posts • Copy-ready • Export CSV</p>
+    <div class="toolbar">
+      <button id="exportCsvBtn" class="btn">Export CSV</button>
+      <span class="subtitle">Use <b>Copy</b> to duplicate captions and prompts.</span>
+    </div>
+  </section>
+  <div id="root"></div>
+  <p class="foot">CK44 Planner • <span class="kw">Gold Intense</span> Edition • LinkedIn</p>
+</div>
+
+
+
+<script>
+(function(){
+  const root=document.getElementById('root');
+  const fb=document.getElementById('fallback');
+  const txts={Morning:'LinkedIn • Share a professional insight or motivational story about CK44 and growth.',
+    Afternoon:'LinkedIn • Highlight CK44 achievements, platform updates, partnership news, or success stories.',
+    Night:'LinkedIn • Encourage engagement, reflection, or network conversation about CK44.'};
+  function panel(d,s){
+    const idt=`t-${d}-${s}`,idp=`p-${d}-${s}`;
+    const prompt=`Create LinkedIn post visual in CK44 blue–gold style with professional tone and topic '${s}' for day ${d}.`;
+    return `<div class="panel">
+      <div class="day"><span class="badge">Day ${d} — ${s}</span><label class="status"><input type="checkbox"> posted</label></div>
+      <div class="grid">
+        <div><label>Caption</label><textarea id="${idt}">${txts[s]}</textarea>
+          <div class="copy"><button class="btn" data-copy="#${idt}">Copy Caption</button></div></div>
+        <div><label>AI Image Prompt</label><textarea id="${idp}">${prompt}</textarea>
+          <div class="copy"><button class="btn" data-copy="#${idp}">Copy Prompt</button></div></div>
+      </div></div>`;
+  }
+  let html="";for(let i=1;i<=30;i++){html+=panel(i,"Morning")+panel(i,"Afternoon")+panel(i,"Night");}
+  root.innerHTML=html;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-copy]');if(!b)return;
+    const s=b.getAttribute('data-copy');const el=document.querySelector(s);if(!el)return;
+    el.select();el.setSelectionRange(0,99999);
+    try{document.execCommand('copy');b.textContent='Copied!';
+      setTimeout(()=>b.textContent='Copy '+(s.includes('-p-')?'Prompt':'Caption'),800);
+      el.style.outline='2px solid var(--cyan)';setTimeout(()=>el.style.outline='none',600);}
+    catch(err){alert('Copy failed');}
+  });
+  document.getElementById('exportCsvBtn').addEventListener('click',()=>{
+    const rows=[["Day","Slot","Caption","Prompt"]];
+    root.querySelectorAll('.panel').forEach(p=>{
+      const b=p.querySelector('.badge').textContent.match(/Day\s+(\d+)\s+—\s+(\w+)/);
+      const d=b?b[1]:"",s=b?b[2]:"";
+      const t=p.querySelectorAll('textarea');
+      rows.push([d,s,t[0].value.trim(),t[1].value.trim()]);
+    });
+    const csv=rows.map(r=>r.map(v=>`"${v.replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='CK44_LinkedIn_30Day_Planner.csv';
+    a.click();URL.revokeObjectURL(a.href);
+  });
+  // removed fallback trigger
+})();
+</script>
+</body>
+</html>
