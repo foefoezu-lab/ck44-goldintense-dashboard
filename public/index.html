@@ -160,88 +160,125 @@ iframe.active{opacity:1;transform:none}
    <div class="iframe-wrap" id="wrap">
  <!-- === CK44 Planners Iframe Viewer === -->
 <div class="iframe-wrap" id="wrap">
-  <!-- === CK44 Planners Iframe Viewer (Auto-Height Fixed) === -->
-<div class="iframe-wrap" id="wrap" style="background:#0a0a0a;">
+  <!-- === CK44 Planners Iframe Viewer (Fixed) === -->
+<!-- === CK44 Gold Intense Premium Viewer (Auto-Height + Fade-In) === -->
+<div class="iframe-wrap" id="wrap" style="background:#0a0a0a;overflow:hidden;">
 
   <!-- Instagram -->
   <iframe src="assets/planners/CK44_Instagram_30Day_Planner_GoldIntense.html"
           title="Instagram"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- LinkedIn -->
-  <iframe src="assets/planners/CK44_LinkedIn_30Day_Planner_DashboardFix.html"
+  <iframe src="assets/planners/CK44_LinkedIn_30Day_Planner_GoldIntense.html"
           title="LinkedIn"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- Medium -->
   <iframe src="assets/planners/CK44_Medium_Planner_1_GoldIntense.html"
           title="Medium"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- Reddit -->
   <iframe src="assets/planners/CK44_Reddit_30Day_Planner_GoldIntense.html"
           title="Reddit"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- Threads -->
   <iframe src="assets/planners/CK44_Threads_30Day_Planner_GoldIntense.html"
           title="Threads"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- TikTok -->
   <iframe src="assets/planners/CK44_TikTok_30Day_Planner_GoldIntense.html"
           title="TikTok"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- X (Twitter) -->
   <iframe src="assets/planners/CK44_X_30Day_Planner_GoldIntense.html"
           title="X (Twitter)"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
           allowfullscreen
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
   <!-- YouTube -->
   <iframe src="assets/planners/CK44_YouTube_30Day_Planner_GoldIntense.html"
           title="YouTube"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-          scrolling="yes"
-          style="width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;"></iframe>
+          scrolling="no"
+          class="planner-frame"
+          style="opacity:0;transition:opacity 0.8s ease,box-shadow 1s ease;width:100%;min-height:100vh;border:none;overflow:hidden;background:#0a0a0a!important;">
+  </iframe>
 
 </div>
 
-<!-- === Auto Height JS === -->
+<!-- === Auto-Height + Fade Script === -->
 <script>
-function adjustIframesHeight() {
-  const iframes = document.querySelectorAll('.iframe-wrap iframe');
-  iframes.forEach(frame => {
-    try {
-      const doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc) return;
-      const height = doc.body.scrollHeight + 80;
-      if (height > 400) frame.style.height = height + 'px';
-    } catch (err) {
-      // skip cross-origin restrictions
-    }
+(function(){
+  const frames=document.querySelectorAll('.planner-frame');
+
+  // Adjust height dynamically
+  const adjust=(f)=>{
+    try{
+      const doc=f.contentDocument||f.contentWindow.document;
+      if(!doc||!doc.body)return;
+      const h=doc.body.scrollHeight+60;
+      if(h>300 && Math.abs(f.offsetHeight-h)>10)f.style.height=h+'px';
+    }catch(e){}
+  };
+
+  const fadeIn=(f)=>{
+    f.style.opacity='1';
+    f.style.boxShadow='0 0 20px rgba(255,215,0,0.25)';
+    setTimeout(()=>f.style.boxShadow='none',1200);
+  };
+
+  const resizeAll=()=>frames.forEach(adjust);
+  window.addEventListener('resize',resizeAll);
+
+  frames.forEach((f)=>{
+    f.addEventListener('load',()=>{
+      fadeIn(f);
+      adjust(f);
+    });
   });
-}
-window.addEventListener('load', adjustIframesHeight);
-window.addEventListener('resize', adjustIframesHeight);
-setInterval(adjustIframesHeight, 1500);
+
+  // periodic adjust (sangat ringan)
+  let count=0;
+  const interval=setInterval(()=>{
+    resizeAll();
+    if(++count>5)clearInterval(interval);
+  },1200);
+})();
 </script>
-<!-- === END CK44 Planners === -->
+<!-- === END CK44 Premium Viewer === -->
 
 
 
